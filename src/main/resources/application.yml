@@ -1,5 +1,5 @@
 server:
-  port: 18181
+  port: 18781
   servlet:
     context-path: /northstarsharing
 spring:
@@ -9,14 +9,13 @@ spring:
 #      resourceserver:
 #        jwt:
 #          issuer-uri: https://accounts.google.com
-#          client-id: 753488737215-ddhopc29cuc7om24u51edb80o4ultjds.apps.googleusercontent.com
+#          client-id:
   datasource:
     url: jdbc:derby:northstarsharing_db;create=true;collation=TERRITORY_BASED:PRIMARY
   jpa:
     database-platform: org.hibernate.dialect.DerbyTenSevenDialect
     hibernate:
       ddl-auto: update
-# TODO Create ddl.
 #    properties:
 #      javax:
 #        persistence:

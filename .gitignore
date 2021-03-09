@@ -35,7 +35,7 @@ build/
 ### Derby ###
 
 # - data directory
-/northstarsharing_db
+/northstarsharing_db/
 
 # - log file
 derby.log

@@ -1,12 +1,18 @@
 package edu.cnm.deepdive.northstarsharing.model.entity;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,6 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
 
+@SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(
     name = "user_profile",
@@ -40,12 +47,12 @@ public class User {
   private Date created;
 
   @NonNull
-  @UpdateTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date updated;
 
   @NonNull
+  @UpdateTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date connected;
@@ -57,6 +64,11 @@ public class User {
   @NonNull
   @Column(nullable = false, unique = true)
   private String displayName;
+
+  @NonNull
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  @OrderBy("created DESC")
+  private final List<Image> images = new LinkedList<>();
 
   @NonNull
   public UUID getId() {
@@ -98,5 +110,10 @@ public class User {
 
   public void setDisplayName(@NonNull String displayName) {
     this.displayName = displayName;
+  }
+
+  @NonNull
+  public List<Image> getImages() {
+    return images;
   }
 }
