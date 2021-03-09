@@ -1,76 +1,102 @@
 package edu.cnm.deepdive.northstarsharing.model.entity;
 
-
-
 import java.util.Date;
+import java.util.UUID;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
 
 @Entity
+@Table(
+    name = "user_profile",
+    indexes = {
+        @Index(columnList = "created"),
+        @Index(columnList = "updated"),
+        @Index(columnList = "connected")
+    }
+)
 public class User {
 
+  @NonNull
   @Id
-  private long userId;
+  @GeneratedValue(generator = "uuid2")
+  @GenericGenerator(name = "uuid2", strategy = "uuid2")
+  @Column(name = "user_id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
+  private UUID id;
 
   @NonNull
-  private Date creationTimestamp;
+  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false, updatable = false)
+  private Date created;
 
-  private Date updateTimestamp;
+  @NonNull
+  @UpdateTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false)
+  private Date updated;
 
-  private Date connectedTimestamp;
+  @NonNull
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false)
+  private Date connected;
 
+  @NonNull
+  @Column(nullable = false, updatable = false, unique = true)
   private String oauthKey;
 
-  private String userName;
+  @NonNull
+  @Column(nullable = false, unique = true)
+  private String displayName;
 
-
-  public long getId() {
-    return userId;
-  }
-
-  public void setId(long userId) {
-    this.userId = userId;
+  @NonNull
+  public UUID getId() {
+    return id;
   }
 
   @NonNull
-  public Date getCreationTimestamp() {
-    return creationTimestamp;
+  public Date getCreated() {
+    return created;
   }
 
-  public void setCreationTimestamp(@NonNull Date creationTimestamp) {
-    this.creationTimestamp = creationTimestamp;
+  @NonNull
+  public Date getUpdated() {
+    return updated;
   }
 
-  public Date getUpdateTimestamp() {
-    return updateTimestamp;
+  @NonNull
+  public Date getConnected() {
+    return connected;
   }
 
-  public void setUpdateTimestamp(Date updateTimestamp) {
-    this.updateTimestamp = updateTimestamp;
+  public void setConnected(@NonNull Date connected) {
+    this.connected = connected;
   }
 
-  public Date getConnectedTimestamp() {
-    return connectedTimestamp;
-  }
-
-  public void setConnectedTimestamp(Date connectedTimestamp) {
-    this.connectedTimestamp = connectedTimestamp;
-  }
-
-  public String getoOauthKey() {
+  @NonNull
+  public String getOauthKey() {
     return oauthKey;
   }
 
-  public void setoOauthKey(String oAuthKey) {
-    this.oauthKey = oAuthKey;
+  public void setOauthKey(@NonNull String oauthKey) {
+    this.oauthKey = oauthKey;
   }
 
-  public String getUserName() {
-    return userName;
+  @NonNull
+  public String getDisplayName() {
+    return displayName;
   }
 
-  public void setUserName(String userName) {
-    this.userName = userName;
+  public void setDisplayName(@NonNull String displayName) {
+    this.displayName = displayName;
   }
 }

@@ -1,75 +1,63 @@
 package edu.cnm.deepdive.northstarsharing.model.entity;
 
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.PrimaryKey;
 import java.util.Date;
+import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.lang.NonNull;
 
-@Entity(
-    foreignKeys = {
-        @ForeignKey(
-            entity = User.class,
-            parentColumns = "user_id_number", childColumns = "user_id_number"
-        )
+@Entity
+@Table(
+    name = "gallery",
+    indexes = {
+        @Index(columnList = "title")
+
     }
 )
 public class Gallery {
 
-  @PrimaryKey(autoGenerate = true)
-  private long galleryId;
+  @NonNull
+  @Id
+  @GeneratedValue(generator = "uuid2")
+  @GenericGenerator(name = "uuid2", strategy = "uuid2")
+  @Column(name = "gallery_id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
+  private UUID id;
+
+  // TODO Create FK annotation to User table.
+  @NonNull
+  @Column(nullable = false)
+  private UUID userId;
 
   @NonNull
-  @ColumnInfo(index = true)
-  private Date creationTimestamp = new Date();
-
-  @ColumnInfo(index = true)
-  private Date updateTimestamp = new Date();
-
-  private String caption = new String();
-
-  private String description = new String();
-
-  public long getGalleryId() {
-    return galleryId;
-  }
-
-  public void setGalleryId(long galleryId) {
-    this.galleryId = galleryId;
-  }
+  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false, updatable = false)
+  private Date created;
 
   @NonNull
-  public Date getCreationTimestamp() {
-    return creationTimestamp;
-  }
+  @UpdateTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false)
+  private Date updated;
 
-  public void setCreationTimestamp(@NonNull Date creationTimestamp) {
-    this.creationTimestamp = creationTimestamp;
-  }
+  @NonNull
+  @Column(nullable = false)
+  private String title;
 
-  public Date getUpdateTimestamp() {
-    return updateTimestamp;
-  }
+  private String description;
 
-  public void setUpdateTimestamp(Date updateTimestamp) {
-    this.updateTimestamp = updateTimestamp;
-  }
+  // TODO Learn/create annotation of reference to the foreign key Java object.
+  private User user;
 
-  public String getCaption() {
-    return caption;
-  }
-
-  public void setCaption(String caption) {
-    this.caption = caption;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
+  // TODO Create getters for immutable data and getters/setters for the rest.
 }

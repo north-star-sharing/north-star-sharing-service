@@ -1,109 +1,81 @@
 package edu.cnm.deepdive.northstarsharing.model.entity;
 
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 import java.util.Date;
+import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.lang.NonNull;
 
 @Entity
+@Table(
+    name = "celestial_object",
+    indexes = {
+        @Index(columnList = "name")
+    }
+)
 public class CelectialObject {
 
-  @PrimaryKey(autoGenerate = true)
-  private long celestialObjectId;
+  @NonNull
+  @Id
+  @GeneratedValue(generator = "uuid2")
+  @GenericGenerator(name = "uuid2", strategy = "uuid2")
+  @Column(name = "celestial_object_id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
+  private UUID id;
 
   @NonNull
-  @ColumnInfo(name = "object_import_date")
-  private Date created = new Date();
-
-  @ColumnInfo(name = "object_name")
-  private String name = new String();
-
-  private String altitude = new String();
-
-  private String azimuth = new String();
-
-  private String rightAscension = new String();
-
-  private String declination = new String();
-
-  private String cartesianX = new String();
-
-  private String cartesianY = new String();
-
-  private String cartesianZ = new String();
+  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false, updatable = false)
+  private Date created;
 
   @NonNull
-  public Date getCreated() {
-    return created;
-  }
+  @UpdateTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false)
+  private Date updated;
 
-  public void setCreated(@NonNull Date created) {
-    this.created = created;
-  }
+  @NonNull
+  @Column(nullable = false)
+  private String name;
 
-  public String getName() {
-    return name;
-  }
+  @NonNull
+  @Column(nullable = false)
+  private String altitude;
 
-  public void setName(String name) {
-    this.name = name;
-  }
+  @NonNull
+  @Column(nullable = false)
+  private String azimuth;
 
-  public String getAltitude() {
-    return altitude;
-  }
+  @NonNull
+  @Column(nullable = false)
+  private String rightAscension;
 
-  public void setAltitude(String altitude) {
-    this.altitude = altitude;
-  }
+  @NonNull
+  @Column(nullable = false)
+  private String declination;
 
-  public String getAzimuth() {
-    return azimuth;
-  }
+  @NonNull
+  @Column(nullable = false)
+  private String cartesianX;
 
-  public void setAzimuth(String azimuth) {
-    this.azimuth = azimuth;
-  }
+  @NonNull
+  @Column(nullable = false)
+  private String cartesianY;
 
-  public String getRightAscension() {
-    return rightAscension;
-  }
+  @NonNull
+  @Column(nullable = false)
+  private String cartesianZ;
 
-  public void setRightAscension(String rightAscension) {
-    this.rightAscension = rightAscension;
-  }
+  // TODO Create getters for immutable data and getters/setters for the rest.
 
-  public String getDeclination() {
-    return declination;
-  }
-
-  public void setDeclination(String declination) {
-    this.declination = declination;
-  }
-
-  public String getCartesianX() {
-    return cartesianX;
-  }
-
-  public void setCartesianX(String cartesianX) {
-    this.cartesianX = cartesianX;
-  }
-
-  public String getCartesianY() {
-    return cartesianY;
-  }
-
-  public void setCartesianY(String cartesianY) {
-    this.cartesianY = cartesianY;
-  }
-
-  public String getCartesianZ() {
-    return cartesianZ;
-  }
-
-  public void setCartesianZ(String cartesianZ) {
-    this.cartesianZ = cartesianZ;
-  }
+  // TODO Create linking table (CelestialObjectImage) to tag images.
 }

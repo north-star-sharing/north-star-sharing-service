@@ -1,106 +1,78 @@
 package edu.cnm.deepdive.northstarsharing.model.entity;
 
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.PrimaryKey;
 import java.util.Date;
+import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.lang.NonNull;
 
-@Entity(
-    foreignKeys = {
-        @ForeignKey(
-            entity = User.class,
-            parentColumns = "user_id_number", childColumns = "user_id_number"
-        ),
-        @ForeignKey(
-            entity = Gallery.class,
-            parentColumns = "galleryId", childColumns = "galleryId"
-        )
+@Entity
+@Table(
+    name = "image",
+    indexes = {
+        @Index(columnList = "title")
     }
 )
 public class Image {
 
-  @PrimaryKey
-  private long imageId;
+  @NonNull
+  @Id
+  @GeneratedValue(generator = "uuid2")
+  @GenericGenerator(name = "uuid2", strategy = "uuid2")
+  @Column(name = "image_id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
+  private UUID id;
+
+  // TODO Create FK annotation to User table.
+  @NonNull
+  @Column(nullable = false)
+  private UUID userId;
+
+  // TODO Create FK annotation to Gallery table.
+  @NonNull
+  @Column(nullable = false)
+  private UUID galleryId;
 
   @NonNull
-  private Date createdTimestamp = new Date();
-
-  private Date updateTimestamp = new Date();
-
-  private String title = new String();
-
-  private String caption = new String();
-
-  private String path = new String();
-
-  private String name = new String();
-
-  private String contentFileType = new String();
-
-  public long getImageId() {
-    return imageId;
-  }
-
-  public void setImageId(long imageId) {
-    this.imageId = imageId;
-  }
+  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false, updatable = false)
+  private Date created;
 
   @NonNull
-  public Date getCreatedTimestamp() {
-    return createdTimestamp;
-  }
+  @UpdateTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false)
+  private Date updated;
 
-  public void setCreatedTimestamp(@NonNull Date createdTimestamp) {
-    this.createdTimestamp = createdTimestamp;
-  }
+  @NonNull
+  @Column(nullable = false)
+  private String title;
 
-  public Date getUpdateTimestamp() {
-    return updateTimestamp;
-  }
+  private String caption;
 
-  public void setUpdateTimestamp(Date updateTimestamp) {
-    this.updateTimestamp = updateTimestamp;
-  }
+  @NonNull
+  @Column(nullable = false)
+  private String path;
 
-  public String getTitle() {
-    return title;
-  }
+  private String name;
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+  private String contentFileType;
 
-  public String getCaption() {
-    return caption;
-  }
+  // TODO Learn/create annotation of reference to the foreign key Java object.
+  private User user;
 
-  public void setCaption(String caption) {
-    this.caption = caption;
-  }
+  // TODO Learn/create annotation of reference to the foreign key Java object.
+  private Gallery gallery;
 
-  public String getPath() {
-    return path;
-  }
-
-  public void setPath(String path) {
-    this.path = path;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getContentFileType() {
-    return contentFileType;
-  }
-
-  public void setContentFileType(String contentFileType) {
-    this.contentFileType = contentFileType;
-  }
+  // TODO Create getters for immutable data and getters/setters for the rest. Determine FK object.
 }

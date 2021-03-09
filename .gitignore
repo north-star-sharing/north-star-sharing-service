@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Derby ###
+
+# - data directory
+/northstarsharing_db
+
+# - log file
+derby.log
+
+# - DDL
+ddl.sql
