@@ -29,6 +29,7 @@ import org.springframework.lang.NonNull;
 @Entity
 @Table(
     indexes = {
+        @Index(columnList = "created"),
         @Index(columnList = "title")
     }
 )
