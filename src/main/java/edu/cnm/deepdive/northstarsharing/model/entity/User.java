@@ -27,7 +27,6 @@ import org.springframework.lang.NonNull;
     name = "user_profile",
     indexes = {
         @Index(columnList = "created"),
-        @Index(columnList = "updated"),
         @Index(columnList = "connected")
     }
 )
@@ -45,11 +44,6 @@ public class User {
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
   private Date created;
-
-  @NonNull
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(nullable = false)
-  private Date updated;
 
   @NonNull
   @UpdateTimestamp
@@ -78,11 +72,6 @@ public class User {
   @NonNull
   public Date getCreated() {
     return created;
-  }
-
-  @NonNull
-  public Date getUpdated() {
-    return updated;
   }
 
   @NonNull

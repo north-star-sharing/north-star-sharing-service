@@ -3,13 +3,12 @@ server:
   servlet:
     context-path: /northstarsharing
 spring:
-# TODO Get token from Google Cloud.
-#  security:
-#    oauth2:
-#      resourceserver:
-#        jwt:
-#          issuer-uri: https://accounts.google.com
-#          client-id:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://accounts.google.com
+          client-id: 939129872960-b91osbhhj6glusieieaqvkhd77np0c5p.apps.googleusercontent.com
   datasource:
     url: jdbc:derby:northstarsharing_db;create=true;collation=TERRITORY_BASED:PRIMARY
   jpa:
