@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
@@ -73,7 +72,7 @@ public class Image {
   @Column(nullable = false)
   private String path;
 
-  private String contentFileType;
+  private String contentType;
 
   @NonNull
   @ManyToMany(
@@ -144,12 +143,12 @@ public class Image {
     this.path = path;
   }
 
-  public String getContentFileType() {
-    return contentFileType;
+  public String getContentType() {
+    return contentType;
   }
 
-  public void setContentFileType(String contentFileType) {
-    this.contentFileType = contentFileType;
+  public void setContentType(String contentFileType) {
+    this.contentType = contentFileType;
   }
 
   @NonNull
