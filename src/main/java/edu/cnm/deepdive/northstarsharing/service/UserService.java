@@ -5,6 +5,8 @@ import edu.cnm.deepdive.northstarsharing.model.entity.User;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Optional;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,12 +39,19 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
         });
   }
 
+  public Optional<User> get(UUID id) {
+    return repository.findById(id);
+  }
+
   @Override
   public UsernamePasswordAuthenticationToken convert(Jwt jwt) {
     Collection<SimpleGrantedAuthority> grants =
         Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
     return new UsernamePasswordAuthenticationToken(
-        getOrCreate(jwt.getSubject(), jwt.getClaim("name")), jwt.getTokenValue(), grants);
+        getOrCreate(jwt.getSubject(),
+            jwt.getClaim("name")),
+        jwt.getTokenValue(),
+        grants);
   }
 
 }

@@ -15,7 +15,7 @@ spring:
     database-platform: org.hibernate.dialect.DerbyTenSevenDialect
     hibernate:
       ddl-auto: update
-#    properties:
+    properties:
 #      javax:
 #        persistence:
 #          schema-generation:
