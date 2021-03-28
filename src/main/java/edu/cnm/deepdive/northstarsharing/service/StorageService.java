@@ -11,6 +11,8 @@ public interface StorageService {
 
   Resource retrieve(String key) throws IOException;
 
+  Resource find(String name) throws IOException;
+
   boolean delete(String key) throws IOException, UnsupportedOperationException, SecurityException;
 
 }

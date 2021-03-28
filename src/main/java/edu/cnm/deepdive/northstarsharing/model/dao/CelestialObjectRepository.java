@@ -8,4 +8,6 @@ public interface CelestialObjectRepository extends JpaRepository<CelestialObject
 
   Iterable<CelestialObject> getAllByOrderByNameAsc();
 
+  Iterable<CelestialObject> findCelestialObjectsByNameOrderByNameAsc(String name);
+
 }

@@ -95,6 +95,11 @@ public class LocalFilesystemStorageService implements StorageService {
   }
 
   @Override
+  public Resource find(String name) throws IOException {
+    return null;
+  }
+
+  @Override
   public boolean delete(String key)
       throws IOException, UnsupportedOperationException, SecurityException {
     try {
