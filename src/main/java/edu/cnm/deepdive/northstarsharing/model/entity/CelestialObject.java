@@ -70,25 +70,18 @@ public class CelestialObject {
   @Column(nullable = false)
   private String name;
 
-  @Column(nullable = false)
   private double altitude;
 
-  @Column(nullable = false)
   private double azimuth;
 
-  @Column(nullable = false)
   private double rightAscension;
 
-  @Column(nullable = false)
   private double declination;
 
-  @Column(nullable = false)
   private double cartesianX;
 
-  @Column(nullable = false)
   private double cartesianY;
 
-  @Column(nullable = false)
   private double cartesianZ;
 
   // Getters and Setters

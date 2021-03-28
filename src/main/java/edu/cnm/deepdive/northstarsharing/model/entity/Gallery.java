@@ -28,7 +28,6 @@ import org.springframework.lang.NonNull;
 @Table(
     indexes = {
         @Index(columnList = "title")
-
     }
 )
 public class Gallery {
@@ -42,7 +41,7 @@ public class Gallery {
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
-  @Column(name = "gallery_id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
+  @Column(name = "gallery_Id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
   private UUID id;
 
 
@@ -50,6 +49,7 @@ public class Gallery {
   @ManyToOne(optional = false)
   @JoinColumn(name = "user_id", nullable = false, updatable = false)
   private User user;
+
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
