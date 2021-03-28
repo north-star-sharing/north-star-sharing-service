@@ -33,36 +33,31 @@ import org.springframework.lang.NonNull;
 public class User {
 
   @NonNull
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  @OrderBy("created DESC")
+  private final List<Image> images = new LinkedList<>();
+  @NonNull
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
   @Column(name = "user_id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
   private UUID id;
-
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
   private Date created;
-
   @NonNull
   @UpdateTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date connected;
-
   @NonNull
   @Column(nullable = false, updatable = false, unique = true)
   private String oauthKey;
-
   @NonNull
   @Column(nullable = false, unique = true)
   private String displayName;
-
-  @NonNull
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-  @OrderBy("created DESC")
-  private final List<Image> images = new LinkedList<>();
 
   @NonNull
   public UUID getId() {

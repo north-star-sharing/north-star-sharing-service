@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.northstarsharing.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,46 +36,6 @@ import org.springframework.lang.NonNull;
 public class Image {
 
   @NonNull
-  @Id
-  @GeneratedValue(generator = "uuid2")
-  @GenericGenerator(name = "uuid2", strategy = "uuid2")
-  @Column(name = "image_id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
-  private UUID id;
-
-  @NonNull
-  @ManyToOne(optional = false)
-  @JoinColumn(name = "user_id", nullable = false, updatable = false)
-  private User user;
-
-  @ManyToOne(optional = true)
-  @JoinColumn(name = "gallery_id")
-  private Gallery gallery;
-
-  @NonNull
-  @CreationTimestamp
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(nullable = false, updatable = false)
-  private Date created;
-
-  @NonNull
-  @UpdateTimestamp
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(nullable = false)
-  private Date updated;
-
-  @NonNull
-  @Column(nullable = false)
-  private String title;
-
-  private String caption;
-
-  @NonNull
-  @Column(nullable = false)
-  private String path;
-
-  private String contentType;
-
-  @NonNull
   @ManyToMany(
       fetch = FetchType.LAZY,
       cascade = {
@@ -84,6 +45,43 @@ public class Image {
   )
   @OrderBy("name ASC, created DESC")
   private final List<CelestialObject> celestialObjects = new LinkedList<>();
+  @NonNull
+  @Id
+  @GeneratedValue(generator = "uuid2")
+  @GenericGenerator(name = "uuid2", strategy = "uuid2")
+  @Column(name = "image_id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
+  private UUID id;
+  @JsonIgnore
+  @NonNull
+  @Column(name = "imageKey", nullable = false, updatable = false)
+  private String key;
+  @NonNull
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "user_id", nullable = false, updatable = false)
+  private User user;
+  @ManyToOne(optional = true)
+  @JoinColumn(name = "gallery_id")
+  private Gallery gallery;
+  @NonNull
+  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false, updatable = false)
+  private Date created;
+  @NonNull
+  @UpdateTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false)
+  private Date updated;
+  @NonNull
+  @Column(nullable = false)
+  private String title;
+  private String caption;
+  @NonNull
+  @Column(nullable = false)
+  private String path;
+  private String contentType;
+
+  // Getters and Setters
 
   @NonNull
   public UUID getId() {
@@ -93,6 +91,15 @@ public class Image {
   @NonNull
   public Date getCreated() {
     return created;
+  }
+
+  @NonNull
+  public String getKey() {
+    return key;
+  }
+
+  public void setKey(@NonNull String key) {
+    this.key = key;
   }
 
   @NonNull
