@@ -46,39 +46,52 @@ public class CelestialObject {
   )
   @OrderBy("created DESC")
   private final List<Image> images = new LinkedList<>();
+
   @NonNull
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
   @Column(name = "celestial_object_id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
   private UUID id;
+
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
   private Date created;
+
   @NonNull
   @UpdateTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date updated;
+
   @NonNull
   @Column(nullable = false)
   private String name;
+
   @Column(nullable = false)
   private double altitude;
+
   @Column(nullable = false)
   private double azimuth;
+
   @Column(nullable = false)
   private double rightAscension;
+
   @Column(nullable = false)
   private double declination;
+
   @Column(nullable = false)
   private double cartesianX;
+
   @Column(nullable = false)
   private double cartesianY;
+
   @Column(nullable = false)
   private double cartesianZ;
+
+  // Getters and Setters
 
   @NonNull
   public UUID getId() {

@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.northstarsharing.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
@@ -30,34 +32,42 @@ import org.springframework.lang.NonNull;
         @Index(columnList = "connected")
     }
 )
+@Component
 public class User {
 
   @NonNull
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   @OrderBy("created DESC")
   private final List<Image> images = new LinkedList<>();
+
   @NonNull
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
   @Column(name = "user_id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
   private UUID id;
+
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
   private Date created;
+
   @NonNull
   @UpdateTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date connected;
+
   @NonNull
   @Column(nullable = false, updatable = false, unique = true)
   private String oauthKey;
+
   @NonNull
   @Column(nullable = false, unique = true)
   private String displayName;
+
+  // Getters and Setters
 
   @NonNull
   public UUID getId() {

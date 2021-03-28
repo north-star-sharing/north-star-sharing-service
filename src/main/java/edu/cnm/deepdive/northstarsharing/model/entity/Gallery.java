@@ -37,12 +37,15 @@ public class Gallery {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   @OrderBy("created DESC")
   private final List<Image> images = new LinkedList<>();
+
   @NonNull
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
   @Column(name = "gallery_id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
   private UUID id;
+
+
   @NonNull
   @ManyToOne(optional = false)
   @JoinColumn(name = "user_id", nullable = false, updatable = false)
@@ -52,15 +55,20 @@ public class Gallery {
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
   private Date created;
+
   @NonNull
   @UpdateTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date updated;
+
   @NonNull
   @Column(nullable = false)
   private String title;
+
   private String description;
+
+  // Getters and Setters
 
   @NonNull
   public UUID getId() {

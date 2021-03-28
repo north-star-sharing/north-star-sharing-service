@@ -24,9 +24,11 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Service;
 import org.springframework.web.HttpMediaTypeException;
 import org.springframework.web.multipart.MultipartFile;
 
+@Service
 public class LocalFilesystemStorageService implements StorageService {
 
   private static final String KEY_PATH_DELIMITER = "/";

@@ -1,8 +1,12 @@
-server:
-  port: 18781
-  servlet:
-    context-path: /northstarsharing
+#server:
+#  port: 18781
+#    context-path: /northstarsharing
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 25MB
+      max-request-size: 30MB
   security:
     oauth2:
       resourceserver:
@@ -11,11 +15,12 @@ spring:
           client-id: 939129872960-b91osbhhj6glusieieaqvkhd77np0c5p.apps.googleusercontent.com
   datasource:
     url: jdbc:derby:northstarsharing_db;create=true;collation=TERRITORY_BASED:PRIMARY
+
   jpa:
     database-platform: org.hibernate.dialect.DerbyTenSevenDialect
     hibernate:
       ddl-auto: update
-    properties:
+#    properties:
 #      javax:
 #        persistence:
 #          schema-generation:
