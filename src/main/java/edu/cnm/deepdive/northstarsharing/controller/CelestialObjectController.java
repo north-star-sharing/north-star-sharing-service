@@ -27,19 +27,16 @@ public class CelestialObjectController {
   }
 
   @GetMapping("/observable")
-  public ResponseEntity<Resource> getObservable(@PathVariable UUID id, String name) {
+  public ResponseEntity<Iterable> getObservable(@PathVariable UUID id, String name) {
     return celestialObjectService
         .getById(id)
         .map((observable) -> {
           try {
-            Resource resource = celestialObjectService.getObservable(observable);
+            Iterable iterable = celestialObjectService.getByName(name);
             return ResponseEntity
                 .ok()
-                .header(HttpHeaders.CONTENT_LENGTH,
-                    String.valueOf(resource.contentLength()))
-                .body(resource);
-          } catch (IOException e) {
-            throw new RuntimeException(e);
+                .header(String.valueOf(name))
+                .body(iterable);
           }
         })
         .orElseThrow();
