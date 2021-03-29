@@ -26,7 +26,7 @@ public class CelestialObjectController {
     this.celestialObjectService = celestialObjectService;
   }
 
-  @GetMapping("/observable")
+  @GetMapping("/observable/{id}")
   public ResponseEntity<Resource> getObservable(@PathVariable UUID id, String name) {
     return celestialObjectService
         .getById(id)

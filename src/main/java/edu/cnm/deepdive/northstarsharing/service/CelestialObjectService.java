@@ -37,6 +37,7 @@ public class CelestialObjectService {
 
   public Resource getObservable(@NonNull CelestialObject celestialObject)
       throws IOException {
+    // FIXME Convert this to return the database entity.
     return storageService.find(celestialObject.getName());
   }
 }
