@@ -2,6 +2,9 @@ package edu.cnm.deepdive.northstarsharing.model.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import edu.cnm.deepdive.northstarsharing.views.GalleryViews;
+import edu.cnm.deepdive.northstarsharing.views.ImageViews;
 import java.net.URI;
 import java.util.Date;
 import java.util.LinkedList;
@@ -39,6 +42,7 @@ import org.springframework.stereotype.Component;
     }
 )
 @Component
+@JsonView({GalleryViews.Hierarchical.class, ImageViews.Flat.class})
 public class Image {
 
   private static EntityLinks entityLinks;
@@ -61,20 +65,6 @@ public class Image {
   @Column(name = "image_id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
   private UUID id;
 
-  @JsonIgnore
-  @NonNull
-  @Column(name = "imageKey", nullable = false, updatable = false)
-  private String key;
-
-  @NonNull
-  @ManyToOne(optional = false)
-  @JoinColumn(name = "user_id", nullable = false, updatable = false)
-  private User user;
-
-  @ManyToOne(optional = true)
-  @JoinColumn(name = "gallery_id")
-  private Gallery gallery;
-
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
@@ -91,17 +81,30 @@ public class Image {
   @Column(nullable = false)
   private String title;
 
-  private String caption;
-
-  @NonNull
-  @Column(nullable = false)
-  private String path;
-
-  private String contentType;
+  @Column(length = 1024)
+  private String description;
 
   @NonNull
   @Column(nullable = false, updatable = false)
   private String name;
+
+  @JsonIgnore
+  @NonNull
+  @Column(name = "resource_key", nullable = false, updatable = false)
+  private String key;
+
+  @NonNull
+  @Column(nullable = false, updatable = false)
+  private String contentType;
+
+  @NonNull
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "user_id", nullable = false, updatable = false)
+  private User user;
+
+  @ManyToOne(optional = true)
+  @JoinColumn(name = "gallery_id")
+  private Gallery gallery;
 
   // Getters and Setters
 
@@ -116,6 +119,37 @@ public class Image {
   }
 
   @NonNull
+  public Date getUpdated() {
+    return updated;
+  }
+
+  @NonNull
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(@NonNull String title) {
+    this.title = title;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String caption) {
+    this.description = caption;
+  }
+
+  @NonNull
+  public String getName() {
+    return name;
+  }
+
+  public void setName(@NonNull String name) {
+    this.name = name;
+  }
+
+  @NonNull
   public String getKey() {
     return key;
   }
@@ -125,8 +159,12 @@ public class Image {
   }
 
   @NonNull
-  public Date getUpdated() {
-    return updated;
+  public String getContentType() {
+    return contentType;
+  }
+
+  public void setContentType(@NonNull String contentType) {
+    this.contentType = contentType;
   }
 
   @NonNull
@@ -144,49 +182,6 @@ public class Image {
 
   public void setGallery(Gallery gallery) {
     this.gallery = gallery;
-  }
-
-  @NonNull
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(@NonNull String title) {
-    this.title = title;
-  }
-
-  public String getCaption() {
-    return caption;
-  }
-
-  public void setCaption(String caption) {
-    this.caption = caption;
-  }
-
-  @NonNull
-  public String getPath() {
-    return path;
-  }
-
-  public void setPath(@NonNull String path) {
-    this.path = path;
-  }
-
-  public String getContentType() {
-    return contentType;
-  }
-
-  public void setContentType(String contentFileType) {
-    this.contentType = contentFileType;
-  }
-
-  @NonNull
-  public String getName() {
-    return name;
-  }
-
-  public void setName(@NonNull String name) {
-    this.name = name;
   }
 
   @NonNull

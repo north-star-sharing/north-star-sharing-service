@@ -1,5 +1,8 @@
 package edu.cnm.deepdive.northstarsharing.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import edu.cnm.deepdive.northstarsharing.views.GalleryViews;
+import edu.cnm.deepdive.northstarsharing.views.ImageViews;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,12 +33,8 @@ import org.springframework.lang.NonNull;
         @Index(columnList = "title")
     }
 )
+@JsonView({GalleryViews.Flat.class, ImageViews.Hierarchical.class})
 public class Gallery {
-
-  @NonNull
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-  @OrderBy("created DESC")
-  private final List<Image> images = new LinkedList<>();
 
   @NonNull
   @Id
@@ -43,12 +42,6 @@ public class Gallery {
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
   @Column(name = "gallery_Id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
   private UUID id;
-
-
-  @NonNull
-  @ManyToOne(optional = false)
-  @JoinColumn(name = "user_id", nullable = false, updatable = false)
-  private User user;
 
   @NonNull
   @CreationTimestamp
@@ -66,7 +59,20 @@ public class Gallery {
   @Column(nullable = false)
   private String title;
 
+  @Column(length = 1024)
   private String description;
+
+  @NonNull
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "user_id", nullable = false, updatable = false)
+  @JsonView({GalleryViews.Hierarchical.class})
+  private User user;
+
+  @NonNull
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  @OrderBy("created DESC")
+  @JsonView({GalleryViews.Hierarchical.class})
+  private final List<Image> images = new LinkedList<>();
 
   // Getters and Setters
 
