@@ -28,7 +28,7 @@ public class CelestialObjectService {
   }
 
   public Iterable<CelestialObject> getByName(String name) {
-    return celestialObjectRepository.findCelestialObjectsByNameOrderByNameAsc(name);
+    return celestialObjectRepository.findCelestialObjectsByName(name);
   }
 
   public Resource getObservable(@NonNull CelestialObject celestialObject)

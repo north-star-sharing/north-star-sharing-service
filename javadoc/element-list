@@ -1,0 +1,6 @@
+edu.cnm.deepdive.northstarsharing
+edu.cnm.deepdive.northstarsharing.configuration
+edu.cnm.deepdive.northstarsharing.controller
+edu.cnm.deepdive.northstarsharing.model.dao
+edu.cnm.deepdive.northstarsharing.model.entity
+edu.cnm.deepdive.northstarsharing.service
