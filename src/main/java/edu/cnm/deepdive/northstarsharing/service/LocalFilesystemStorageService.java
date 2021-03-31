@@ -54,6 +54,7 @@ public class LocalFilesystemStorageService implements StorageService {
     uploadDirectory = uploadConfiguration.isApplicationHome()
         ? applicationHome.getDir().toPath().resolve(uploadPath)
         : Path.of(uploadPath);
+    //noinspection ResultOfMethodCallIgnored
     uploadDirectory.toFile().mkdirs();
     subdirectoryPattern = uploadConfiguration.getSubdirectoryPattern();
     whitelist = uploadConfiguration.getWhitelist();
@@ -65,7 +66,6 @@ public class LocalFilesystemStorageService implements StorageService {
     randomizerLimit = filenameProperties.getRandomizerLimit();
     formatter = new SimpleDateFormat(timestampProperties.getFormat());
     formatter.setTimeZone(timestampProperties.getTimeZone());
-
   }
 
   @Override

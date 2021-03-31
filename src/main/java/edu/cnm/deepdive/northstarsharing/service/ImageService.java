@@ -56,7 +56,7 @@ public class ImageService {
     String key = storageService.store(file);
     Image image = new Image();
     image.setTitle(title);
-    image.setCaption(caption);
+    image.setDescription(caption);
     image.setName((originalFilename) != null ? originalFilename : UNTITLED_FILE);
     image.setContentType((contentType != null)
         ? contentType
@@ -65,7 +65,6 @@ public class ImageService {
     return save(image);
 
   }
-
 
 }
 

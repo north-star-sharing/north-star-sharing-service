@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.northstarsharing.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,22 +31,8 @@ import org.springframework.lang.NonNull;
         @Index(columnList = "name")
     }
 )
+@JsonView({})
 public class CelestialObject {
-
-  @NonNull
-  @ManyToMany(
-      fetch = FetchType.LAZY,
-      cascade = {
-          CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH
-      }
-  )
-  @JoinTable(
-      name = "celestial_object_image",
-      joinColumns = @JoinColumn(name = "celestial_object_id", nullable = false, updatable = false),
-      inverseJoinColumns = @JoinColumn(name = "image_id", nullable = false, updatable = false)
-  )
-  @OrderBy("created DESC")
-  private final List<Image> images = new LinkedList<>();
 
   @NonNull
   @Id
@@ -83,6 +70,21 @@ public class CelestialObject {
   private double cartesianY;
 
   private double cartesianZ;
+
+  @NonNull
+  @ManyToMany(
+      fetch = FetchType.LAZY,
+      cascade = {
+          CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH
+      }
+  )
+  @JoinTable(
+      name = "celestial_object_image",
+      joinColumns = @JoinColumn(name = "celestial_object_id", nullable = false, updatable = false),
+      inverseJoinColumns = @JoinColumn(name = "image_id", nullable = false, updatable = false)
+  )
+  @OrderBy("created DESC")
+  private final List<Image> images = new LinkedList<>();
 
   // Getters and Setters
 
@@ -173,4 +175,5 @@ public class CelestialObject {
   public List<Image> getImages() {
     return images;
   }
+
 }
