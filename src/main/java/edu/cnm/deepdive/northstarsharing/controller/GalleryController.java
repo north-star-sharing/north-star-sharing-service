@@ -28,8 +28,8 @@ public class GalleryController {
   }
 
   @GetMapping(value = "/{galleryId}/images/{imageId}",
-  consumes = MediaType.APPLICATION_JSON_VALUE,
-  produces = MediaType.APPLICATION_JSON_VALUE)
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public boolean setImageGallery(
       @PathVariable UUID galleryId,
       @PathVariable UUID imageId,
@@ -38,22 +38,22 @@ public class GalleryController {
     return galleryService
         .getById(galleryId)
         .flatMap((gallery) ->
-          imageService
-              .getById(imageId)
-              .map((image) -> {
-                if (imageInGallery) {
-                  image.setGallery(gallery);
-                  gallery.getImages()
-                      .add(image);
-                } else {
-                  image.setGallery(null);
-                  gallery.getImages()
-                      .add(image);
-                }
-                return galleryService.saveGallery(gallery);
-              })
+            imageService
+                .getById(imageId)
+                .map((image) -> {
+                  if (imageInGallery) {
+                    image.setGallery(gallery);
+                    gallery.getImages()
+                        .add(image);
+                  } else {
+                    image.setGallery(null);
+                    gallery.getImages()
+                        .add(image);
+                  }
+                  return galleryService.saveGallery(gallery);
+                })
         )
-          .map((gallery) -> imageInGallery)
+        .map((gallery) -> imageInGallery)
         .orElseThrow();
   }
 }

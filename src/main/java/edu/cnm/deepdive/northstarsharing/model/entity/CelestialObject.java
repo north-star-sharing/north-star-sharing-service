@@ -35,43 +35,6 @@ import org.springframework.lang.NonNull;
 public class CelestialObject {
 
   @NonNull
-  @Id
-  @GeneratedValue(generator = "uuid2")
-  @GenericGenerator(name = "uuid2", strategy = "uuid2")
-  @Column(name = "celestial_object_id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
-  private UUID id;
-
-  @NonNull
-  @CreationTimestamp
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(nullable = false, updatable = false)
-  private Date created;
-
-  @NonNull
-  @UpdateTimestamp
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(nullable = false)
-  private Date updated;
-
-  @NonNull
-  @Column(nullable = false)
-  private String name;
-
-  private double altitude;
-
-  private double azimuth;
-
-  private double rightAscension;
-
-  private double declination;
-
-  private double cartesianX;
-
-  private double cartesianY;
-
-  private double cartesianZ;
-
-  @NonNull
   @ManyToMany(
       fetch = FetchType.LAZY,
       cascade = {
@@ -85,6 +48,32 @@ public class CelestialObject {
   )
   @OrderBy("created DESC")
   private final List<Image> images = new LinkedList<>();
+  @NonNull
+  @Id
+  @GeneratedValue(generator = "uuid2")
+  @GenericGenerator(name = "uuid2", strategy = "uuid2")
+  @Column(name = "celestial_object_id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
+  private UUID id;
+  @NonNull
+  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false, updatable = false)
+  private Date created;
+  @NonNull
+  @UpdateTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false)
+  private Date updated;
+  @NonNull
+  @Column(nullable = false)
+  private String name;
+  private double altitude;
+  private double azimuth;
+  private double rightAscension;
+  private double declination;
+  private double cartesianX;
+  private double cartesianY;
+  private double cartesianZ;
 
   // Getters and Setters
 

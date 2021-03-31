@@ -1,6 +1,5 @@
 package edu.cnm.deepdive.northstarsharing.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;

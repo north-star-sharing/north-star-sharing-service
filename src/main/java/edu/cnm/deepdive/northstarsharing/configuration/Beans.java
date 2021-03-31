@@ -21,7 +21,6 @@ public class Beans {
   }
 
   /**
-   *
    * @return an ApplicationHome bean
    */
   @Bean

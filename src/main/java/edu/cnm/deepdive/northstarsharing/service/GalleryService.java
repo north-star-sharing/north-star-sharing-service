@@ -5,7 +5,6 @@ import edu.cnm.deepdive.northstarsharing.model.entity.Gallery;
 import edu.cnm.deepdive.northstarsharing.model.entity.User;
 import java.util.Optional;
 import java.util.UUID;
-import jdk.jfr.Name;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
