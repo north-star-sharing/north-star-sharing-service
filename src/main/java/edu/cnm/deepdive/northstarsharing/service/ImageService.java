@@ -20,12 +20,11 @@ public class ImageService {
   private static final String UNTITLED_FILE = "Filename missing";
 
   private final ImageRepository imageRepository;
-  private final StorageService storageService;
+//  private final StorageService storageService;
 
   @Autowired
-  public ImageService(StorageService storageService, ImageRepository imageRepository) {
+  public ImageService(ImageRepository imageRepository) {
     this.imageRepository = imageRepository;
-    this.storageService = storageService;
   }
 
   public Optional<Image> getById(@NonNull UUID id) {
@@ -33,7 +32,8 @@ public class ImageService {
   }
 
   public Resource getContent(@NonNull Image image) throws IOException {
-    return storageService.retrieve(image.getKey());
+//    return storageService.retrieve(image.getKey());
+    return null;
   }
 
   public Image save(@NonNull Image image) throws IOException {
@@ -45,7 +45,7 @@ public class ImageService {
   }
 
   public void delete(@NonNull Image image) throws IOException {
-    storageService.delete(image.getKey());
+//    storageService.delete(image.getKey());
     imageRepository.delete(image);
   }
 
@@ -53,7 +53,7 @@ public class ImageService {
       @NonNull User user) throws IOException, HttpMediaTypeException {
     String originalFilename = file.getOriginalFilename();
     String contentType = file.getContentType();
-    String key = storageService.store(file);
+//    String key = storageService.store(file);
     Image image = new Image();
     image.setTitle(title);
     image.setDescription(caption);
@@ -61,7 +61,7 @@ public class ImageService {
     image.setContentType((contentType != null)
         ? contentType
         : MediaType.APPLICATION_OCTET_STREAM_VALUE);
-    image.setKey(key);
+//    image.setKey(key);
     return save(image);
 
   }

@@ -21,8 +21,7 @@ public class GalleryController {
   private final GalleryService galleryService;
   private final ImageService imageService;
 
-  public GalleryController(GalleryService galleryService,
-      ImageService imageService) {
+  public GalleryController(GalleryService galleryService, ImageService imageService) {
     this.galleryService = galleryService;
     this.imageService = imageService;
   }
