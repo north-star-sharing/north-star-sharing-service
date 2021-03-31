@@ -13,13 +13,9 @@ import org.springframework.stereotype.Service;
 public class CelestialObjectService {
 
   private final CelestialObjectRepository celestialObjectRepository;
-  private final StorageService storageService;
 
-  public CelestialObjectService(
-      CelestialObjectRepository celestialObjectRepository,
-      StorageService storageService) {
+  public CelestialObjectService(CelestialObjectRepository celestialObjectRepository) {
     this.celestialObjectRepository = celestialObjectRepository;
-    this.storageService = storageService;
   }
 
   public CelestialObject newCelestialObject(CelestialObject celestialObject) {
@@ -38,6 +34,6 @@ public class CelestialObjectService {
   public Resource getObservable(@NonNull CelestialObject celestialObject)
       throws IOException {
     // FIXME Convert this to return the database entity.
-    return storageService.find(celestialObject.getName());
+    return null;
   }
 }

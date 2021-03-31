@@ -1,60 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <relativePath/>
+    <version>2.4.3</version> <!-- lookup parent from repository -->
+  </parent>
+
+  <groupId>edu.cnm.deepdive</groupId>
   <artifactId>north-star-sharing</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>north-star-sharing-service</name>
+  <description>&quot;Bring the furthest reaches of the vast riches from outer space within reach one
+    picture at a time!&quot;</description>
 
-  <build>
-    <plugins>
-
-      <plugin>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <groupId>org.springframework.boot</groupId>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <links>
-            <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
-          </links>
-        </configuration>
-        <groupId>org.apache.maven.plugins</groupId>
-        <version>3.2.0</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>asciidoctor-maven-plugin</artifactId>
-        <dependencies>
-
-          <dependency>
-            <artifactId>spring-restdocs-asciidoctor</artifactId>
-            <groupId>org.springframework.restdocs</groupId>
-            <version>${spring-restdocs.version}</version>
-          </dependency>
-
-        </dependencies>
-        <executions>
-
-          <execution>
-            <configuration>
-              <backend>html</backend>
-              <doctype>book</doctype>
-            </configuration>
-            <goals>
-              <goal>process-asciidoc</goal>
-            </goals>
-            <id>generate-docs</id>
-            <phase>prepare-package</phase>
-          </execution>
-
-        </executions>
-        <groupId>org.asciidoctor</groupId>
-        <version>1.5.8</version>
-      </plugin>
-
-    </plugins>
-  </build>
+  <properties>
+    <java.version>11</java.version>
+  </properties>
 
   <dependencies>
 
@@ -113,51 +81,85 @@
       <optional>true</optional>
     </dependency>
 
-    <dependency>
-      <artifactId>gson</artifactId>
-      <groupId>com.google.code.gson</groupId>
-      <version>2.8.2</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <artifactId>gson</artifactId>-->
+<!--      <groupId>com.google.code.gson</groupId>-->
+<!--      <version>2.8.2</version>-->
+<!--    </dependency>-->
 
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
     <dependency>
-      <artifactId>jackson-core</artifactId>
       <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.11.4</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson/jackson-bom -->
     <dependency>
+      <groupId>com.fasterxml.jackson</groupId>
       <artifactId>jackson-bom</artifactId>
-      <groupId>com.fasterxml.jackson</groupId>
+      <version>2.11.4</version>
+      <type>pom</type>
     </dependency>
 
-    <dependency>
-      <artifactId>jackson-parent</artifactId>
-      <groupId>com.fasterxml.jackson</groupId>
-      <version>2.11</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <artifactId>jackson-parent</artifactId>-->
+<!--      <groupId>com.fasterxml.jackson</groupId>-->
+<!--      <version>2.11</version>-->
+<!--    </dependency>-->
 
   </dependencies>
 
-  <description>&quot;Bring the furthest reaches of the vast riches from outer space within reach one
-    picture at a time!&quot;
-  </description>
+  <build>
+    <plugins>
 
-  <groupId>edu.cnm.deepdive</groupId>
+      <plugin>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <groupId>org.springframework.boot</groupId>
+      </plugin>
 
-  <modelVersion>4.0.0</modelVersion>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <links>
+            <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
+          </links>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.2.0</version>
+      </plugin>
 
-  <name>north-star-sharing-service</name>
+      <plugin>
+        <artifactId>asciidoctor-maven-plugin</artifactId>
+        <dependencies>
 
-  <parent>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <groupId>org.springframework.boot</groupId>
-    <relativePath/>
-    <version>2.4.3</version> <!-- lookup parent from repository -->
-  </parent>
+          <dependency>
+            <artifactId>spring-restdocs-asciidoctor</artifactId>
+            <groupId>org.springframework.restdocs</groupId>
+            <version>${spring-restdocs.version}</version>
+          </dependency>
 
-  <properties>
-    <java.version>11</java.version>
-  </properties>
+        </dependencies>
+        <executions>
 
-  <version>0.0.1-SNAPSHOT</version>
+          <execution>
+            <configuration>
+              <backend>html</backend>
+              <doctype>book</doctype>
+            </configuration>
+            <goals>
+              <goal>process-asciidoc</goal>
+            </goals>
+            <id>generate-docs</id>
+            <phase>prepare-package</phase>
+          </execution>
+
+        </executions>
+        <groupId>org.asciidoctor</groupId>
+        <version>1.5.8</version>
+      </plugin>
+
+    </plugins>
+  </build>
 
 </project>

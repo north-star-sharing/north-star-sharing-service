@@ -26,7 +26,6 @@ public class UploadConfiguration {
   );
   private FilenameProperties filename;
 
-
   /*
    *Returns a flag indicating whether the upload directory should be interpreted relative to the
    * application home directory.
@@ -81,7 +80,6 @@ public class UploadConfiguration {
     private int randomizerLimit = 1_000_000;
     private TimestampProperties timestamp;
 
-
     public String getFormat() {
       return format;
     }
@@ -105,13 +103,13 @@ public class UploadConfiguration {
     public void setTimestamp(TimestampProperties timestamp) {
       this.timestamp = timestamp;
     }
+
   }
 
   public static class TimestampProperties {
 
     private String format = "yyyyMMddHHmmssSSS";
     private TimeZone timeZone = TimeZone.getTimeZone("UTC");
-
 
     public String getFormat() {
       return format;
