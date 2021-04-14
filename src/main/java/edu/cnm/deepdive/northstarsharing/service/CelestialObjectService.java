@@ -68,9 +68,9 @@ public class CelestialObjectService {
   }
 
   /**
-   * Return a consumer-usable {@link Resource} to previously uploaded content.
+   * Return a consumer-usable {@link Resource} for tagging images.
    *
-   * @param image {@link Image} entity instance referencing the uploaded content.
+   * @param celestialObject {@link Image} entity instance referencing the celestial object instance.
    * @return {@link Resource} usable in a response body (e.g. for downloading).
    * @throws IOException If the file content cannot&mdash;for any reason&mdash;be read from the file
    *                     store.
