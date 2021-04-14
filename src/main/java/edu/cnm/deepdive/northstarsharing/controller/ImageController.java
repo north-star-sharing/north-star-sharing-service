@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * Handles REST requests for operations on individual instances of the {@link Image} type.
+ */
 @RestController
 @RequestMapping("/images")
 @ExposesResourceFor(Image.class)
@@ -28,27 +31,52 @@ public class ImageController {
 
   private final ImageService imageService;
 
+  /**
+   * Initializes this instance with the {@link ImageService} instances used to perform the requested
+   * operations.
+   *
+   * @param imageService Provides access to high-level query &amp; persistence operations on {@link
+   *                     Image} instances.
+   */
   @Autowired
   public ImageController(ImageService imageService) {
     this.imageService = imageService;
   }
 
+  /**
+   * Stores uploaded file content along with a new {@link Image} instance referencing the content.
+   *
+   * @param file           MIME content of single file upload.
+   * @param title          Summary of uploaded content.
+   * @param description    Detailed description of uploaded content.
+   * @param authentication Authentication token with {@link User} principal.
+   * @return Instance of {@link Image} created &amp; persisted for the uploaded content.
+   */
   @PostMapping(
       consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Image> post(
       @RequestParam MultipartFile file,
       @RequestParam(required = false) String title,
-      @RequestParam(required = false) String caption,
+      @RequestParam(required = false) String description,
       Authentication authentication) throws IOException, HttpMediaTypeException {
     Image image = imageService.store(
         file,
         title,
-        caption,
+        description,
         (User) authentication.getPrincipal());
     return ResponseEntity.created(image.getHref()).body(image);
   }
 
+  /**
+   * Returns the file content of the specified {@link Image} resource. The original filename of the
+   * image is included in the {@code filename} portion of the {@code content-disposition} response
+   * header, while the MIME type is returned in the {@code content-type} header.
+   *
+   * @param id             Unique identifier of {@link Image} resource.
+   * @param authentication Authentication token with {@link User} principal.
+   * @return Image content.
+   */
   @GetMapping("/{id}/content")
   public ResponseEntity<Resource> getContent(@PathVariable UUID id, Authentication authentication) {
     return imageService

@@ -28,6 +28,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.HttpMediaTypeException;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * Simple implementation of {@link StorageService}, storing files in a directory specified in the
+ * application properties, further organized into subdirectories by specified portions of the
+ * generated filenames.
+ */
 @Service
 public class LocalFilesystemStorageService implements StorageService {
 
@@ -44,6 +49,15 @@ public class LocalFilesystemStorageService implements StorageService {
   private final int randomizerLimit;
   private final List<MediaType> contentTypes;
 
+  /**
+   * Initializes this instance with a source of randomness, a service configuration object
+   * (presumably read from {@code application.properties} or {@code application.yml}), and an
+   * instance of {@link ApplicationHome}.
+   *
+   * @param rng                 Source of randomness.
+   * @param uploadConfiguration Configuration object read from application properties.
+   * @param applicationHome     Application location context.
+   */
   @Autowired
   public LocalFilesystemStorageService(
       Random rng, UploadConfiguration uploadConfiguration, ApplicationHome applicationHome) {
@@ -67,6 +81,7 @@ public class LocalFilesystemStorageService implements StorageService {
     formatter = new SimpleDateFormat(timestampProperties.getFormat());
     formatter.setTimeZone(timestampProperties.getTimeZone());
   }
+
 
   @Override
   public String store(MultipartFile file) throws IOException, HttpMediaTypeException {

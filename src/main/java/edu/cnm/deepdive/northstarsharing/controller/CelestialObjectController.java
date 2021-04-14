@@ -1,7 +1,9 @@
 package edu.cnm.deepdive.northstarsharing.controller;
 
 import edu.cnm.deepdive.northstarsharing.model.entity.CelestialObject;
+import edu.cnm.deepdive.northstarsharing.model.entity.Image;
 import edu.cnm.deepdive.northstarsharing.service.CelestialObjectService;
+import edu.cnm.deepdive.northstarsharing.service.ImageService;
 import java.io.IOException;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Handles REST requests for operations on individual instances of the {@link CelestialObject}
+ * type.
+ */
 @RestController
 @RequestMapping("/celestialobjects")
 @ExposesResourceFor(CelestialObject.class)
@@ -21,13 +27,27 @@ public class CelestialObjectController {
 
   private final CelestialObjectService celestialObjectService;
 
+  /**
+   * Initializes this instance with the {@link CelestialObjectService} instances used to perform the
+   * requested operations.
+   *
+   * @param celestialObjectService Provides access to high-level query &amp; persistence operations
+   *                               on {@link CelestialObject} instances
+   */
   @Autowired
   public CelestialObjectController(CelestialObjectService celestialObjectService) {
     this.celestialObjectService = celestialObjectService;
   }
 
+  /**
+   * Return the requested {@link CelestialObject} instance.
+   *
+   * @param id Unique identifier for the {@link CelestialObject} instance.
+   * @return A {@link CelestialObject} HTTP GET request response.
+   */
   @GetMapping("/observable/{id}")
-  public ResponseEntity<Resource> getObservable(@PathVariable UUID id, String name) {
+  public ResponseEntity<Resource> getObservable(@PathVariable UUID id) {
+    // FIXME Needs to be simplified to return the JSON object of a celestial body, including name plus coordinates.
     return celestialObjectService
         .getById(id)
         .map((observable) -> {

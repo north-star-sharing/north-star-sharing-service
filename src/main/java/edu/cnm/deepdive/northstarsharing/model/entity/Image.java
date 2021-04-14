@@ -33,6 +33,11 @@ import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+/**
+ * Encapsulates a persistent image object with: title, description, file metadata (original filename
+ * and MIME type), reference to the contributing {@link User}, reference to the {@link Gallery} it
+ * is a part of, and reference to the actual content.
+ */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(
@@ -108,82 +113,139 @@ public class Image {
 
   // Getters and Setters
 
+  /**
+   * Returns the unique identifier of this image.
+   */
   @NonNull
   public UUID getId() {
     return id;
   }
 
+  /**
+   * Returns the datetime this image was first persisted to the database.
+   */
   @NonNull
   public Date getCreated() {
     return created;
   }
 
+  /**
+   * Returns the datetime this image was most recently updated in the database.
+   */
   @NonNull
   public Date getUpdated() {
     return updated;
   }
 
+  /**
+   * Returns the title of this image.
+   */
   @NonNull
   public String getTitle() {
     return title;
   }
 
+  /**
+   * Sets the title of this image to the specified {@code title}.
+   */
   public void setTitle(@NonNull String title) {
     this.title = title;
   }
 
+  /**
+   * Returns the description of this image.
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Sets the description of this image to the specified {@code description}.
+   */
   public void setDescription(String caption) {
     this.description = caption;
   }
 
+  /**
+   * Returns the filename of this image.
+   */
   @NonNull
   public String getName() {
     return name;
   }
 
+  /**
+   * Sets the filename of this image to the specified {@code name}.
+   */
   public void setName(@NonNull String name) {
     this.name = name;
   }
 
+  /**
+   * Returns a reference (a {@link String} representation of a {@link java.nio.file.Path}, {@link
+   * URI}, etc.) to the location of this image. This should be treated as an &ldquo;opaque&rdquo;
+   * value, meaningful only to the storage service.
+   */
   @NonNull
   public String getKey() {
     return key;
   }
 
+  /**
+   * Sets the location reference of this image to the specified {@code path}. This should be treated
+   * as an &ldquo;opaque&rdquo; value, meaningful only to the storage service.
+   */
   public void setKey(@NonNull String key) {
     this.key = key;
   }
 
+  /**
+   * Returns the MIME type of this image.
+   */
   @NonNull
   public String getContentType() {
     return contentType;
   }
 
+  /**
+   * Sets the MIME type of this image to the specified {@code contentType}.
+   */
   public void setContentType(@NonNull String contentType) {
     this.contentType = contentType;
   }
 
+  /**
+   * Returns the {@link User} that contributed this image.
+   */
   @NonNull
   public User getUser() {
     return user;
   }
 
+  /**
+   * Sets this image's contributor to the specified {@link User}.
+   */
   public void setUser(@NonNull User user) {
     this.user = user;
   }
 
+  /**
+   * Return the image's associated {@link Gallery}.
+   */
   public Gallery getGallery() {
     return gallery;
   }
 
+  /**
+   * Sets the image's associated {@link Gallery}.
+   */
   public void setGallery(Gallery gallery) {
     this.gallery = gallery;
   }
 
+  /**
+   * Returns a list of all associated {@link CelestialObject} tags.
+   */
   @NonNull
   public List<CelestialObject> getCelestialObjects() {
     return celestialObjects;
@@ -191,11 +253,18 @@ public class Image {
 
   // Link methods
 
+  /**
+   * Returns the location of REST resource representation of this image.
+   */
   public URI getHref() {
     //noinspection ConstantConditions
     return (id != null) ? entityLinks.linkToItemResource(Image.class, id).toUri() : null;
   }
 
+  /**
+   * Injects the {@link EntityLinks} required for constructing the REST resource location of an
+   * image.
+   */
   @Autowired
   public void setEntityLinks(
       @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection") EntityLinks entityLinks) {

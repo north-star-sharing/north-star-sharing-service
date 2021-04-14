@@ -1,6 +1,7 @@
-#server:
-#  port: 18781
-#    context-path: /northstarsharing
+server:
+  port: 18781
+  servlet:
+    context-path: /northstarsharing
 spring:
   servlet:
     multipart:
