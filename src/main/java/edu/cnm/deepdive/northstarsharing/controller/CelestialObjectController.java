@@ -40,7 +40,7 @@ public class CelestialObjectController {
   }
 
   /**
-   * Return the requested {@link CelestialObject} instance
+   * Return the requested {@link CelestialObject} instance.
    *
    * @param id Unique identifier for the {@link CelestialObject} instance.
    * @return A {@link CelestialObject} HTTP GET request response.
