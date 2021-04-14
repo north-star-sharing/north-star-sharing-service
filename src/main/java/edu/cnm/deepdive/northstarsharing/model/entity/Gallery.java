@@ -26,6 +26,10 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
 
+/**
+ * Encapsulates a persistent gallery object with: title, description, reference to the owner
+ * {@link User}, and a reference to the list of {@link Image}s it contains.
+ */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(
@@ -76,48 +80,78 @@ public class Gallery {
 
   // Getters and Setters
 
+  /**
+   * Returns the unique identifier of this gallery.
+   */
   @NonNull
   public UUID getId() {
     return id;
   }
 
+  /**
+   * Returns the datetime this gallery was first persisted to the database.
+   */
   @NonNull
   public Date getCreated() {
     return created;
   }
 
+  /**
+   * Returns the datetime this gallery was most recently updated in the database.
+   */
   @NonNull
   public Date getUpdated() {
     return updated;
   }
 
+  /**
+   * Returns the {@link List} of {@link Image}s contained by this gallery.
+   */
   @NonNull
   public List<Image> getImages() {
     return images;
   }
 
+  /**
+   * Return the user that created this gallery.
+   */
   @NonNull
   public User getUser() {
     return user;
   }
 
+  /**
+   * Set the user that created this gallery.
+   */
   public void setUser(@NonNull User user) {
     this.user = user;
   }
 
+  /**
+   * Returns the title of this gallery.
+   */
   @NonNull
   public String getTitle() {
     return title;
   }
 
+  /**
+   * Sets the title of this gallery to the specified {@code title}.
+   */
   public void setTitle(@NonNull String title) {
     this.title = title;
   }
 
+  /**
+   * Returns the description of this gallery.
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Sets the description of this gallery to the specified {@code description}.
+   */
   public void setDescription(String description) {
     this.description = description;
   }

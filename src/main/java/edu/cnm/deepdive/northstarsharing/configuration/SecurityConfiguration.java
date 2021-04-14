@@ -20,6 +20,10 @@ import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.oauth2.jwt.JwtValidators;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 
+/**
+ * Provides configuration methods to customize token validation and to secure endpoints by
+ * authentication status &amp; role.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -32,6 +36,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Value("${spring.security.oauth2.resourceserver.jwt.client-id}")
   private String clientId;
 
+  /**
+   * Initializes this instance with the provided {@link Converter}, used to convert the Bearer token
+   * into a token useful for later injection into controller methods.
+   *
+   * @param converter Token converter.
+   */
   @Autowired
   public SecurityConfiguration(Converter<Jwt, ? extends AbstractAuthenticationToken> converter) {
     this.converter = converter;
@@ -45,9 +55,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .jwtAuthenticationConverter(converter);
   }
 
+  /**
+   * Constructs and returns an injectable {@link JwtDecoder} that will be used automatically for
+   * extended validation of the JSON web token (JWT) included as a bearer token in the request.
+   *
+   * @return Token decoder.
+   */
   @Bean
   public JwtDecoder jwtDecoder() {
+    // Google, do you verify this person is authenticated?
     NimbusJwtDecoder decoder = (NimbusJwtDecoder) JwtDecoders.fromIssuerLocation(issuerUri);
+    // Validate the bearer token
     OAuth2TokenValidator<Jwt> audienceValidator =
         new JwtClaimValidator<List<String>>(JwtClaimNames.AUD, (aud) -> aud.contains(clientId));
     OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(issuerUri);

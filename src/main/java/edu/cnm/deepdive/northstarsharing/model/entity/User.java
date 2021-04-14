@@ -23,6 +23,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+/**
+ * Encapsulates a persistent user object with basic OpenID properties.
+ */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(
@@ -69,43 +72,70 @@ public class User {
 
   // Getters and Setters
 
+  /**
+   * Returns the unique identifier of this user.
+   */
   @NonNull
   public UUID getId() {
     return id;
   }
 
+  /**
+   * Returns the datetime this user was first persisted to the database.
+   */
   @NonNull
   public Date getCreated() {
     return created;
   }
 
+  /**
+   * Returns the datetime this image was most recently connected/updated.
+   */
   @NonNull
   public Date getConnected() {
     return connected;
   }
 
+  /**
+   * Sets the datetime this image was most recently connected/updated.
+   */
   public void setConnected(@NonNull Date connected) {
     this.connected = connected;
   }
 
+  /**
+   * Returns the unique identifier provided (and recognized) by the OpenID/OAuth2.0 provider.
+   */
   @NonNull
   public String getOauthKey() {
     return oauthKey;
   }
 
+  /**
+   * Sets the unique OpenID/OAuth2.0 identifier of this user to the specified {@code oauthKey}.
+   */
   public void setOauthKey(@NonNull String oauthKey) {
     this.oauthKey = oauthKey;
   }
 
+  /**
+   * Returns the unique display name of this user.
+   */
   @NonNull
   public String getDisplayName() {
     return displayName;
   }
 
+  /**
+   * Sets the display name of this user to the specified {@code displayName}.
+   */
   public void setDisplayName(@NonNull String displayName) {
     this.displayName = displayName;
   }
 
+  /**
+   * Returns the {@link List List&lt;Image&gt;} contributed by this user, in descending date order.
+   */
   @NonNull
   public List<Image> getImages() {
     return images;

@@ -24,6 +24,9 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
 
+/**
+ * Encapsulates a persistent celestial object with: name, right ascension and declination.
+ */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(
@@ -57,19 +60,10 @@ public class CelestialObject {
   @Column(nullable = false)
   private String name;
 
-  private double altitude;
-
-  private double azimuth;
-
   private double rightAscension;
 
   private double declination;
 
-  private double cartesianX;
-
-  private double cartesianY;
-
-  private double cartesianZ;
 
   @NonNull
   @ManyToMany(
@@ -88,89 +82,83 @@ public class CelestialObject {
 
   // Getters and Setters
 
+  /**
+   * Returns the unique identifier of this celestial object.
+   */
   @NonNull
   public UUID getId() {
     return id;
   }
 
+  /**
+   * Returns the datetime this celestial object was first persisted to the database.
+   */
   @NonNull
   public Date getCreated() {
     return created;
   }
 
+  /**
+   * Returns the datetime this celestial object was most recently updated.
+   */
   @NonNull
   public Date getUpdated() {
     return updated;
   }
 
+  /**
+   * Sets the datetime this celestial object was most recently updated.
+   */
   public void setUpdated(@NonNull Date updated) {
     this.updated = updated;
   }
 
+  /**
+   * Returns the name of this celestial object.
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Sets the name of this celestial object to the specified {@code title}.
+   */
   public void setName(String name) {
     this.name = name;
   }
 
-  public double getAltitude() {
-    return altitude;
-  }
-
-  public void setAltitude(double altitude) {
-    this.altitude = altitude;
-  }
-
-  public double getAzimuth() {
-    return azimuth;
-  }
-
-  public void setAzimuth(double azimuth) {
-    this.azimuth = azimuth;
-  }
-
+  /**
+   * Returns the right ascension of this celestial object.
+   */
   public double getRightAscension() {
     return rightAscension;
   }
 
+  /**
+   * Sets the right ascension of this celestial object to the specified {@code rightAscension}.
+   */
   public void setRightAscension(double rightAscension) {
     this.rightAscension = rightAscension;
   }
 
+  /**
+   * Returns the declination of this celestial object.
+   */
   public double getDeclination() {
     return declination;
   }
 
+  /**
+   * Sets the declination of this celestial object to the specified {@code declination}.
+   */
   public void setDeclination(double declination) {
     this.declination = declination;
   }
 
-  public double getCartesianX() {
-    return cartesianX;
-  }
-
-  public void setCartesianX(double cartesianX) {
-    this.cartesianX = cartesianX;
-  }
-
-  public double getCartesianY() {
-    return cartesianY;
-  }
-
-  public void setCartesianY(double cartesianY) {
-    this.cartesianY = cartesianY;
-  }
-
-  public double getCartesianZ() {
-    return cartesianZ;
-  }
-
-  public void setCartesianZ(double cartesianZ) {
-    this.cartesianZ = cartesianZ;
-  }
-
+  /**
+   * Returns the {@link List List&lt;Image&gt;} contributed by this celestial object, in descending
+   * date order.
+   */
   @NonNull
   public List<Image> getImages() {
     return images;
