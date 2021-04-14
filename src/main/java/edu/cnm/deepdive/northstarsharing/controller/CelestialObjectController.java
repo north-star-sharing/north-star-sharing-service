@@ -47,6 +47,7 @@ public class CelestialObjectController {
    */
   @GetMapping("/observable/{id}")
   public ResponseEntity<Resource> getObservable(@PathVariable UUID id) {
+    // FIXME Needs to be simplified to return the JSON object of a celestial body, including name plus coordinates.
     return celestialObjectService
         .getById(id)
         .map((observable) -> {
