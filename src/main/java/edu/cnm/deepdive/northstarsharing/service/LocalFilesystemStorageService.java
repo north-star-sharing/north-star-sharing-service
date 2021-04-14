@@ -109,7 +109,6 @@ public class LocalFilesystemStorageService implements StorageService {
     return new UrlResource(path.toUri());
   }
 
-  @Override
   public Resource find(String name) throws IOException {
     return null;
   }
