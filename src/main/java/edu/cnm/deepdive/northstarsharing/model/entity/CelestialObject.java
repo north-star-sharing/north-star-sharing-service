@@ -60,8 +60,12 @@ public class CelestialObject {
   @Column(nullable = false)
   private String name;
 
+  @NonNull
+  @Column(nullable = false)
   private double rightAscension;
 
+  @NonNull
+  @Column(nullable = false)
   private double declination;
 
 
