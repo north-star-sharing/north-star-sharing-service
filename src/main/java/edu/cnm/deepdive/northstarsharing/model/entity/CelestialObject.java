@@ -61,9 +61,11 @@ public class CelestialObject {
   private String name;
 
   @NonNull
+  @Column(nullable = false)
   private double rightAscension;
 
   @NonNull
+  @Column(nullable = false)
   private double declination;
 
 
@@ -118,7 +120,6 @@ public class CelestialObject {
   /**
    * Returns the name of this celestial object.
    */
-  @NonNull
   public String getName() {
     return name;
   }
@@ -126,14 +127,13 @@ public class CelestialObject {
   /**
    * Sets the name of this celestial object to the specified {@code title}.
    */
-  public void setName(@NonNull String name) {
+  public void setName(String name) {
     this.name = name;
   }
 
   /**
    * Returns the right ascension of this celestial object.
    */
-  @NonNull
   public double getRightAscension() {
     return rightAscension;
   }
@@ -141,14 +141,13 @@ public class CelestialObject {
   /**
    * Sets the right ascension of this celestial object to the specified {@code rightAscension}.
    */
-  public void setRightAscension(@NonNull double rightAscension) {
+  public void setRightAscension(double rightAscension) {
     this.rightAscension = rightAscension;
   }
 
   /**
    * Returns the declination of this celestial object.
    */
-  @NonNull
   public double getDeclination() {
     return declination;
   }
@@ -156,7 +155,7 @@ public class CelestialObject {
   /**
    * Sets the declination of this celestial object to the specified {@code declination}.
    */
-  public void setDeclination(@NonNull double declination) {
+  public void setDeclination(double declination) {
     this.declination = declination;
   }
 
