@@ -61,7 +61,6 @@ public class ImageController {
       @RequestParam MultipartFile file,
       @RequestParam(required = true) String title,
       @RequestParam(required = false) String description,
-      @RequestParam(required = true)
       Authentication authentication) throws IOException, HttpMediaTypeException {
     Image image = imageService.store(
         file,

@@ -8,7 +8,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://accounts.google.com
-          client-id: 939129872960-b91osbhhj6glusieieaqvkhd77np0c5p.apps.googleusercontent.com
+          client-id: 746842365231-2scssvkquergtfcnv4qrc44c5a52q6le.apps.googleusercontent.com
 
   servlet:
     multipart:

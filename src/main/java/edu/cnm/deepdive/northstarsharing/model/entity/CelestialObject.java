@@ -1,10 +1,12 @@
 package edu.cnm.deepdive.northstarsharing.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import java.net.URI;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
+import javax.annotation.PostConstruct;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +24,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
 
 /**
@@ -36,6 +40,8 @@ import org.springframework.lang.NonNull;
 )
 @JsonView({})
 public class CelestialObject {
+
+  private static EntityLinks entityLinks;
 
   @NonNull
   @Id
@@ -166,6 +172,23 @@ public class CelestialObject {
   @NonNull
   public List<Image> getImages() {
     return images;
+  }
+
+  public URI getHref() {
+    //noinspection ConstantConditions
+    return (id != null) ? entityLinks.linkToItemResource(Image.class, id).toUri() : null;
+  }
+
+  @Autowired
+  public void setEntityLinks(
+      @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection") EntityLinks entityLinks) {
+    CelestialObject.entityLinks = entityLinks;
+  }
+
+  @PostConstruct
+  private void initHateoas() {
+    //noinspection ResultOfMethodCallIgnored
+    entityLinks.hashCode();
   }
 
 }
