@@ -103,6 +103,26 @@ public class Image {
   private String contentType;
 
   @NonNull
+  @Column(nullable = false, updatable = false)
+  private float azimuth;
+
+  @NonNull
+  @Column(nullable = false, updatable = false)
+  private float pitch;
+
+  @NonNull
+  @Column(nullable = false, updatable = false)
+  private float roll;
+
+  @NonNull
+  @Column(nullable = false, updatable = false)
+  private double latitude;
+
+  @NonNull
+  @Column(nullable = false, updatable = false)
+  private double longitude;
+
+  @NonNull
   @ManyToOne(optional = false)
   @JoinColumn(name = "user_id", nullable = false, updatable = false)
   private User user;
@@ -212,6 +232,103 @@ public class Image {
    */
   public void setContentType(@NonNull String contentType) {
     this.contentType = contentType;
+  }
+
+  /**
+   * Returns the azimuth angle in degrees at the time the image was captured. This value represents
+   * the angle between the device's y-axis and the magnetic north pole. When facing north, this
+   * angle is 0, when facing south, this angle is π. Likewise, when facing east, this angle is π/2,
+   * and when facing west, this angle is -π/2. The range of values is -π to π.
+   */
+  @NonNull
+  public float getAzimuth() {
+    return azimuth;
+  }
+
+  /**
+   * Sets the azimuth angle in degrees at the time the image was captured. This value represents
+   * the angle between the device's y-axis and the magnetic north pole. When facing north, this
+   * angle is 0, when facing south, this angle is π. Likewise, when facing east, this angle is π/2,
+   * and when facing west, this angle is -π/2. The range of values is -π to π.
+   */
+  public void setAzimuth(@NonNull float azimuth) {
+    this.azimuth = azimuth;
+  }
+
+  /**
+   * Returns the pitch angle in degrees at the time the image was captured. This value represents
+   * the angle between a plane parallel to the device's screen and a plane parallel to the ground.
+   * Assuming that the bottom edge of the device faces the user and that the screen is face-up,
+   * tilting the top edge of the device toward the ground creates a positive pitch angle. The range
+   * of values is -π to π.
+   */
+  @NonNull
+  public float getPitch() {
+    return pitch;
+  }
+
+  /**
+   * Sets the pitch angle in degrees at the time the image was captured. This value represents
+   * the angle between a plane parallel to the device's screen and a plane parallel to the ground.
+   * Assuming that the bottom edge of the device faces the user and that the screen is face-up,
+   * tilting the top edge of the device toward the ground creates a positive pitch angle. The range
+   * of values is -π to π.
+   */
+  public void setPitch(@NonNull float pitch) {
+    this.pitch = pitch;
+  }
+
+  /**
+   * Returns the roll angle in degrees at the time the image was captured. This value represents the
+   * angle between a plane perpendicular to the device's screen and a plane perpendicular to the
+   * ground. Assuming that the bottom edge of the device faces the user and that the screen is
+   * face-up, tilting the left edge of the device toward the ground creates a positive roll angle.
+   * The range of values is -π/2 to π/2.
+   */
+  @NonNull
+  public float getRoll() {
+    return roll;
+  }
+
+  /**
+   * Sets the roll angle in degrees at the time the image was captured. This value represents the
+   * angle between a plane perpendicular to the device's screen and a plane perpendicular to the
+   * ground. Assuming that the bottom edge of the device faces the user and that the screen is
+   * face-up, tilting the left edge of the device toward the ground creates a positive roll angle.
+   * The range of values is -π/2 to π/2.
+   */
+  public void setRoll(@NonNull float roll) {
+    this.roll = roll;
+  }
+
+  /**
+   * Returns the north/south latitude in degrees at the time the image was captured.
+   */
+  @NonNull
+  public double getLatitude() {
+    return latitude;
+  }
+
+  /**
+   * Sets the north/south latitude in degrees at the time the image was captured.
+   */
+  public void setLatitude(@NonNull double latitude) {
+    this.latitude = latitude;
+  }
+
+  /**
+   * Returns the east/west longitude in degrees at the time the image was captured.
+   */
+  @NonNull
+  public double getLongitude() {
+    return longitude;
+  }
+
+  /**
+   * Sets the east/west longitude in degrees at the time the image was captured.
+   */
+  public void setLongitude(@NonNull double longitude) {
+    this.longitude = longitude;
   }
 
   /**

@@ -27,8 +27,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
 
 /**
- * Encapsulates a persistent gallery object with: title, description, reference to the owner
- * {@link User}, and a reference to the list of {@link Image}s it contains.
+ * Encapsulates a persistent gallery object with: title, description, reference to the owner {@link
+ * User}, and a reference to the list of {@link Image}s it contains.
  */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
@@ -45,27 +45,33 @@ public class Gallery {
   @OrderBy("created DESC")
   @JsonView({GalleryViews.Hierarchical.class})
   private final List<Image> images = new LinkedList<>();
+
   @NonNull
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
   @Column(name = "gallery_Id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
   private UUID id;
+
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
   private Date created;
+
   @NonNull
   @UpdateTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date updated;
+
   @NonNull
   @Column(nullable = false)
   private String title;
+
   @Column(length = 1024)
   private String description;
+
   @NonNull
   @ManyToOne(optional = false)
   @JoinColumn(name = "user_id", nullable = false, updatable = false)

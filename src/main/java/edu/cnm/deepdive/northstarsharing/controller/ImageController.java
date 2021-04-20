@@ -48,7 +48,7 @@ public class ImageController {
    *
    * @param file           MIME content of single file upload.
    * @param title          Summary of uploaded content.
-   * @param description    Detailed description of uploaded content.
+   * @param description    (Optional) Detailed description of uploaded content.
    * @param authentication Authentication token with {@link User} principal.
    * @return Instance of {@link Image} created &amp; persisted for the uploaded content.
    */
@@ -57,8 +57,9 @@ public class ImageController {
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Image> post(
       @RequestParam MultipartFile file,
-      @RequestParam(required = false) String title,
+      @RequestParam(required = true) String title,
       @RequestParam(required = false) String description,
+      @RequestParam(required = true)
       Authentication authentication) throws IOException, HttpMediaTypeException {
     Image image = imageService.store(
         file,

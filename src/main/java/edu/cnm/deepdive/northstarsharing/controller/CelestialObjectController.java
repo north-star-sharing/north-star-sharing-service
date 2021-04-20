@@ -1,9 +1,7 @@
 package edu.cnm.deepdive.northstarsharing.controller;
 
 import edu.cnm.deepdive.northstarsharing.model.entity.CelestialObject;
-import edu.cnm.deepdive.northstarsharing.model.entity.Image;
 import edu.cnm.deepdive.northstarsharing.service.CelestialObjectService;
-import edu.cnm.deepdive.northstarsharing.service.ImageService;
 import java.io.IOException;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,25 +41,13 @@ public class CelestialObjectController {
    * Return the requested {@link CelestialObject} instance.
    *
    * @param id Unique identifier for the {@link CelestialObject} instance.
-   * @return A {@link CelestialObject} HTTP GET request response.
+   * @return A {@link CelestialObject}.
    */
-  @GetMapping("/observable/{id}")
-  public ResponseEntity<Resource> getObservable(@PathVariable UUID id) {
-    // FIXME Needs to be simplified to return the JSON object of a celestial body, including name plus coordinates.
+  @GetMapping("/{id}")
+  public CelestialObject getById(@PathVariable UUID id) {
     return celestialObjectService
         .getById(id)
-        .map((observable) -> {
-          try {
-            Resource resource = celestialObjectService.getObservable(observable);
-            return ResponseEntity
-                .ok()
-                .header(HttpHeaders.CONTENT_LENGTH,
-                    String.valueOf(resource.contentLength()))
-                .body(resource);
-          } catch (IOException e) {
-            throw new RuntimeException(e);
-          }
-        })
         .orElseThrow();
   }
+
 }

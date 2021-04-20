@@ -67,17 +67,4 @@ public class CelestialObjectService {
     return celestialObjectRepository.findCelestialObjectsByName(name);
   }
 
-  /**
-   * Return a consumer-usable {@link Resource} for tagging images.
-   *
-   * @param celestialObject {@link Image} entity instance referencing the celestial object instance.
-   * @return {@link Resource} usable in a response body (e.g. for downloading).
-   * @throws IOException If the file content cannot&mdash;for any reason&mdash;be read from the file
-   *                     store.
-   */
-  public Resource getObservable(@NonNull CelestialObject celestialObject)
-      throws IOException {
-    // FIXME Convert this to return the database entity.
-    return null;
-  }
 }
