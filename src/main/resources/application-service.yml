@@ -1,0 +1,42 @@
+spring:
+
+  application:
+    name: service
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://accounts.google.com
+          client-id: 939129872960-b91osbhhj6glusieieaqvkhd77np0c5p.apps.googleusercontent.com
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 25MB
+      max-request-size: 30MB
+
+server:
+  port: 18781
+  servlet:
+    context-path: /northstarsharing
+
+upload:
+  application-home: true
+  # The upload file path name
+  directory: uploads
+  subdirectory-pattern: "^(.{4})(.{2})(.{2}).*$"
+  # Allowed MIME types of uploaded files.
+  whitelist:
+    - image/bmp
+    - image/gif
+    - image/jpeg
+    - image/pjpeg
+    - image/png
+    - image/tiff
+  filename:
+    format: "%1$s-%2$d.%3$s"
+    randomizer-limit: 1000000
+    timestamp:
+      format: yyyyMMddHHmmssSSS
+      time-zone: UTC

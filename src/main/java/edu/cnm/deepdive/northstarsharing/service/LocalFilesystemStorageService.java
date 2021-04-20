@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.system.ApplicationHome;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
@@ -34,6 +35,7 @@ import org.springframework.web.multipart.MultipartFile;
  * generated filenames.
  */
 @Service
+@Profile("service")
 public class LocalFilesystemStorageService implements StorageService {
 
   private static final String KEY_PATH_DELIMITER = "/";

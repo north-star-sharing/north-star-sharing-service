@@ -40,6 +40,18 @@ public class GalleryService {
   }
 
   /**
+   * Persists (creates or updates) the specified {@link Gallery} instance's to the database, updating
+   * and returning the instance's accordingly. (The instance is updated in-place, but the reference to
+   * it is also returned.)
+   *
+   * @param galleryIterable Instance to be persisted.
+   * @return Updated all instance's.
+   */
+  public Iterable<Gallery> saveGallery(@NonNull Iterable<Gallery> galleryIterable) {
+    return galleryRepository.saveAll(galleryIterable);
+  }
+
+  /**
    * Selects and returns a {@link Gallery} with the specified {@code id}, as the content of an
    * {@link Optional Optional&lt;Gallery&gt;}. If no such instance exists, the {@link Optional} is
    * empty.
