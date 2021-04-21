@@ -103,23 +103,23 @@ public class Image {
   @Column(nullable = false, updatable = false)
   private String contentType;
 
-  @NonNull
+
   @Column(nullable = false, updatable = false)
   private float azimuth;
 
-  @NonNull
+
   @Column(nullable = false, updatable = false)
   private float pitch;
 
-  @NonNull
+
   @Column(nullable = false, updatable = false)
   private float roll;
 
-  @NonNull
+
   @Column(nullable = false, updatable = false)
   private double latitude;
 
-  @NonNull
+
   @Column(nullable = false, updatable = false)
   private double longitude;
 

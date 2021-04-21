@@ -64,14 +64,24 @@ public class ImageController {
       @RequestParam MultipartFile file,
       @RequestParam(required = true) String title,
       @RequestParam(required = false) String description,
+      @RequestParam(required = true) String azimuth,
+      @RequestParam(required = true) String pitch,
+      @RequestParam(required = true) String roll,
+      @RequestParam(required = true) String latitude,
+      @RequestParam(required = true) String longitude,
       Authentication authentication,
       Gallery gallery) throws IOException, HttpMediaTypeException {
-    Image image = imageService.store(
+    Image image = (imageService.store(
         file,
         title,
         description,
+        Float.parseFloat(azimuth),
+        Float.parseFloat(pitch),
+        Float.parseFloat(roll),
+        Double.parseDouble(latitude),
+        Double.parseDouble(longitude),
         (User) authentication.getPrincipal(),
-        gallery);
+        gallery));
     return ResponseEntity.created(image.getHref()).body(image);
   }
 

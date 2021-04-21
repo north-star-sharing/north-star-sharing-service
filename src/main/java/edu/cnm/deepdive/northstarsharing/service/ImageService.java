@@ -114,6 +114,7 @@ public class ImageService {
    * @throws HttpMediaTypeException If the MIME type of the uploaded file is not on the whitelist.
    */
   public Image store(@NonNull MultipartFile file, String title, String description,
+      float azimuth, float pitch, float roll, double latitude, double longitude,
       @NonNull User user, Gallery gallery) throws IOException, HttpMediaTypeException {
     String originalFilename = file.getOriginalFilename();
     String contentType = file.getContentType();
@@ -121,6 +122,11 @@ public class ImageService {
     Image image = new Image();
     image.setTitle(title);
     image.setDescription(description);
+    image.setAzimuth(azimuth);
+    image.setPitch(pitch);
+    image.setRoll(roll);
+    image.setLatitude(latitude);
+    image.setLongitude(longitude);
     image.setUser(user);
     image.setGallery(gallery);
     image.setName((originalFilename) != null ? originalFilename : UNTITLED_FILE);

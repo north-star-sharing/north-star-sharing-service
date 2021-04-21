@@ -57,7 +57,7 @@ public class GalleryController {
   public ResponseEntity<Gallery> post(@RequestBody Gallery gallery, Authentication auth) {
     gallery = galleryService.saveGallery(gallery, (User) auth.getPrincipal());
     return ResponseEntity.created(gallery.getHref())
-                         .body(gallery);
+        .body(gallery);
   }
 
   @JsonView(GalleryViews.Flat.class)
@@ -107,11 +107,11 @@ public class GalleryController {
                   if (imageInGallery) {
                     image.setGallery(gallery);
                     gallery.getImages()
-                           .add(image);
+                        .add(image);
                   } else {
                     image.setGallery(null);
                     gallery.getImages()
-                           .add(image);
+                        .add(image);
                   }
                   return galleryService.saveGallery(gallery, gallery.getUser());
                 })
@@ -128,8 +128,13 @@ public class GalleryController {
   public ResponseEntity<Image> post(
       @PathVariable(required = false) UUID galleryId,
       @RequestParam MultipartFile file,
-      @RequestParam(required = false) String title,
+      @RequestParam(required = true) String title,
       @RequestParam(required = false) String description,
+      @RequestParam(required = true) String azimuth,
+      @RequestParam(required = true) String pitch,
+      @RequestParam(required = true) String roll,
+      @RequestParam(required = true) String latitude,
+      @RequestParam(required = true) String longitude,
       Authentication auth) throws IOException, HttpMediaTypeException {
     return galleryService
         .getById(galleryId)
@@ -138,7 +143,12 @@ public class GalleryController {
                 (User) auth.getPrincipal(),
                 gallery,
                 title,
-                description))
+                description,
+                Float.parseFloat(azimuth),
+                Float.parseFloat(pitch),
+                Float.parseFloat(roll),
+                Double.parseDouble(latitude),
+                Double.parseDouble(longitude)))
         .orElseThrow(ImageNotFoundException::new);
   }
 
@@ -147,16 +157,26 @@ public class GalleryController {
       User user,
       Gallery gallery,
       String title,
-      String description) {
+      String description,
+      float azimuth,
+      float pitch,
+      float roll,
+      double latitude,
+      double longitude) {
     try {
       Image image = imageService.store(
           file,
           title,
           description,
+          azimuth,
+          pitch,
+          roll,
+          latitude,
+          longitude,
           user,
           gallery);
       return ResponseEntity.created(image.getHref())
-                           .body(image);
+          .body(image);
     } catch (IOException e) {
       throw new StorageException(e);
     } catch (HttpMediaTypeException e) {
