@@ -35,7 +35,8 @@ public class GalleryService {
    * @param gallery Instance to be persisted.
    * @return Updated instance.
    */
-  public Gallery saveGallery(@NonNull Gallery gallery) {
+  public Gallery saveGallery(@NonNull Gallery gallery, User user) {
+    gallery.setUser(user);
     return galleryRepository.save(gallery);
   }
 
@@ -70,7 +71,7 @@ public class GalleryService {
    * @return {@link Iterable Iterable&lt;Gallery&gt;} containing all galleries.
    */
   public Iterable<Gallery> getAll() {
-    return galleryRepository.findAll();
+    return galleryRepository.getAllByOrderByTitleAsc();
   }
 
 }

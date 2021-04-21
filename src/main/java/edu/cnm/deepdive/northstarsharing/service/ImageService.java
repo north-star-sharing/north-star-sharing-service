@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.northstarsharing.service;
 
 import edu.cnm.deepdive.northstarsharing.model.dao.ImageRepository;
+import edu.cnm.deepdive.northstarsharing.model.entity.Gallery;
 import edu.cnm.deepdive.northstarsharing.model.entity.Image;
 import edu.cnm.deepdive.northstarsharing.model.entity.User;
 import java.io.IOException;
@@ -113,13 +114,15 @@ public class ImageService {
    * @throws HttpMediaTypeException If the MIME type of the uploaded file is not on the whitelist.
    */
   public Image store(@NonNull MultipartFile file, String title, String description,
-      @NonNull User user) throws IOException, HttpMediaTypeException {
+      @NonNull User user, Gallery gallery) throws IOException, HttpMediaTypeException {
     String originalFilename = file.getOriginalFilename();
     String contentType = file.getContentType();
     String key = storageService.store(file);
     Image image = new Image();
     image.setTitle(title);
     image.setDescription(description);
+    image.setUser(user);
+    image.setGallery(gallery);
     image.setName((originalFilename) != null ? originalFilename : UNTITLED_FILE);
     image.setContentType((contentType != null)
         ? contentType

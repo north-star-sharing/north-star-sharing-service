@@ -1,8 +1,11 @@
 package edu.cnm.deepdive.northstarsharing.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import edu.cnm.deepdive.northstarsharing.model.entity.Gallery;
 import edu.cnm.deepdive.northstarsharing.model.entity.Image;
 import edu.cnm.deepdive.northstarsharing.model.entity.User;
 import edu.cnm.deepdive.northstarsharing.service.ImageService;
+import edu.cnm.deepdive.northstarsharing.views.ImageViews;
 import java.io.IOException;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,12 +64,14 @@ public class ImageController {
       @RequestParam MultipartFile file,
       @RequestParam(required = true) String title,
       @RequestParam(required = false) String description,
-      Authentication authentication) throws IOException, HttpMediaTypeException {
+      Authentication authentication,
+      Gallery gallery) throws IOException, HttpMediaTypeException {
     Image image = imageService.store(
         file,
         title,
         description,
-        (User) authentication.getPrincipal());
+        (User) authentication.getPrincipal(),
+        gallery);
     return ResponseEntity.created(image.getHref()).body(image);
   }
 
@@ -100,5 +105,19 @@ public class ImageController {
           }
         })
         .orElseThrow();
+  }
+
+  @JsonView(ImageViews.Hierarchical.class)
+  @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Image get(@PathVariable UUID id, Authentication auth) {
+    return imageService
+        .getById(id)
+        .orElseThrow();
+  }
+
+  @JsonView(ImageViews.Flat.class)
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public Iterable<Image> list(Authentication auth) {
+    return imageService.listByCreated();
   }
 }
