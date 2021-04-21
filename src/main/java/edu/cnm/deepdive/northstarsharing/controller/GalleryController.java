@@ -89,7 +89,8 @@ public class GalleryController {
    * was added or removed.
    */
 
-  @GetMapping(value = "/{galleryId}/images/{imageId}",
+  @GetMapping(
+      value = "/{galleryId}/images/{imageId}",
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public boolean setImageGallery(
