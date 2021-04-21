@@ -3,6 +3,7 @@ package edu.cnm.deepdive.northstarsharing.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import edu.cnm.deepdive.northstarsharing.configuration.Beans;
 import edu.cnm.deepdive.northstarsharing.views.GalleryViews;
 import edu.cnm.deepdive.northstarsharing.views.ImageViews;
 import java.net.URI;
@@ -122,7 +123,7 @@ public class Image {
   @Column(nullable = false, updatable = false)
   private double longitude;
 
-  @NonNull
+
   @ManyToOne(optional = false)
   @JoinColumn(name = "user_id", nullable = false, updatable = false)
   private User user;
@@ -368,13 +369,16 @@ public class Image {
     return celestialObjects;
   }
 
-  // Link methods
+  // Link methods.
+
+
 
   /**
    * Returns the location of REST resource representation of this image.
    */
   public URI getHref() {
     //noinspection ConstantConditions
+    EntityLinks entityLinks = Beans.bean(EntityLinks.class);
     return (id != null) ? entityLinks.linkToItemResource(Image.class, id).toUri() : null;
   }
 
@@ -392,7 +396,7 @@ public class Image {
   @PostConstruct
   private void initHateoas() {
     //noinspection ResultOfMethodCallIgnored
-    entityLinks.hashCode();
+    entityLinks.toString();
   }
 
 }

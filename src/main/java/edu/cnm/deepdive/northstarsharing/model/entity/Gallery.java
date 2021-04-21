@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.northstarsharing.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import edu.cnm.deepdive.northstarsharing.configuration.Beans;
 import edu.cnm.deepdive.northstarsharing.views.GalleryViews;
 import edu.cnm.deepdive.northstarsharing.views.ImageViews;
 import java.net.URI;
@@ -29,6 +30,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 /**
  * Encapsulates a persistent gallery object with: title, description, reference to the owner {@link
@@ -41,6 +43,7 @@ import org.springframework.lang.NonNull;
         @Index(columnList = "title")
     }
 )
+@Component
 @JsonView({GalleryViews.Flat.class, ImageViews.Hierarchical.class})
 public class Gallery {
 
@@ -164,6 +167,7 @@ public class Gallery {
 
   public URI getHref() {
     //noinspection ConstantConditions
+    EntityLinks entityLinks = Beans.bean(EntityLinks.class);
     return (id != null) ? entityLinks.linkToItemResource(Image.class, id).toUri() : null;
   }
 

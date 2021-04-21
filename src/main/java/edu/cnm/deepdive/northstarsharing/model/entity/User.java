@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.northstarsharing.model.entity;
 
+import edu.cnm.deepdive.northstarsharing.configuration.Beans;
 import java.net.URI;
 import java.util.Date;
 import java.util.LinkedList;
@@ -148,6 +149,7 @@ public class User {
 
   public URI getHref() {
     //noinspection ConstantConditions
+    EntityLinks entityLinks = Beans.bean(EntityLinks.class);
     return (id != null) ? entityLinks.linkToItemResource(User.class, id).toUri() : null;
   }
 

@@ -16,7 +16,7 @@ public class CelestialObjectViews {
   /**
    * Mark a class or field as part of the Hierarchical CelestialObject view.
    */
-  public static class Hierarchical {
+  public static class Hierarchical extends  Flat{
 
   }
 

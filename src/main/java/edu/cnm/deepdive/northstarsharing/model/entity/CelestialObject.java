@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.northstarsharing.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import edu.cnm.deepdive.northstarsharing.configuration.Beans;
 import java.net.URI;
 import java.util.Date;
 import java.util.LinkedList;
@@ -27,6 +28,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 /**
  * Encapsulates a persistent celestial object with: name, right ascension and declination.
@@ -38,6 +40,7 @@ import org.springframework.lang.NonNull;
         @Index(columnList = "name")
     }
 )
+@Component
 @JsonView({})
 public class CelestialObject {
 
@@ -176,6 +179,7 @@ public class CelestialObject {
 
   public URI getHref() {
     //noinspection ConstantConditions
+    EntityLinks entityLinks = Beans.bean(EntityLinks.class);
     return (id != null) ? entityLinks.linkToItemResource(Image.class, id).toUri() : null;
   }
 
