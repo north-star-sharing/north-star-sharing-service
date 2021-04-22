@@ -43,7 +43,7 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
    * @param displayName Name used for display (not identification) purposes.
    * @return Created or retrieved instance of {@link User}.
    */
-  public User getOrCreate(String oauthKey, String displayName) {
+  public synchronized User getOrCreate(String oauthKey, String displayName) {
     return repository.findFirstByOauthKey(oauthKey)
         .map((user) -> {
           user.setConnected(new Date());

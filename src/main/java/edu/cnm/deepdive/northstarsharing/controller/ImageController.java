@@ -82,7 +82,8 @@ public class ImageController {
         Double.parseDouble(longitude),
         (User) authentication.getPrincipal(),
         gallery));
-    return ResponseEntity.created(image.getHref()).body(image);
+    return ResponseEntity.created(image.getHref())
+                         .body(image);
   }
 
   /**
