@@ -20,6 +20,7 @@ server:
   port: 18781
   servlet:
     context-path: /northstarsharing
+  forward-headers-strategy: native
 
 upload:
   application-home: true
