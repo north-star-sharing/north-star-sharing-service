@@ -1,6 +1,5 @@
 package edu.cnm.deepdive.northstarsharing.configuration;
 
-import java.security.SecureRandom;
 import java.util.Random;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.system.ApplicationHome;
@@ -24,7 +23,7 @@ public class Beans implements ApplicationContextAware {
    */
   @Bean
   public Random random() {
-    return new SecureRandom();
+    return new Random();
   }
 
   /**
