@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import edu.cnm.deepdive.northstarsharing.model.entity.Gallery;
 import edu.cnm.deepdive.northstarsharing.model.entity.Image;
 import edu.cnm.deepdive.northstarsharing.model.entity.User;
+import edu.cnm.deepdive.northstarsharing.service.GalleryService;
 import edu.cnm.deepdive.northstarsharing.service.ImageService;
 import edu.cnm.deepdive.northstarsharing.views.ImageViews;
 import java.io.IOException;
@@ -35,6 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImageController {
 
   private final ImageService imageService;
+  private final GalleryService galleryService;
 
   /**
    * Initializes this instance with the {@link ImageService} instances used to perform the requested
@@ -44,8 +46,9 @@ public class ImageController {
    *                     Image} instances.
    */
   @Autowired
-  public ImageController(ImageService imageService) {
+  public ImageController(ImageService imageService, GalleryService galleryService) {
     this.imageService = imageService;
+    this.galleryService = galleryService;
   }
 
   /**

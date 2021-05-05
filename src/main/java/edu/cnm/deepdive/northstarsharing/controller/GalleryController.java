@@ -53,8 +53,11 @@ public class GalleryController {
   }
 
   @JsonView(GalleryViews.Hierarchical.class)
-  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Gallery> post(@RequestBody Gallery gallery, Authentication auth) {
+  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Gallery> post(
+      @RequestBody Gallery gallery,
+      Authentication auth) {
     gallery = galleryService.saveGallery(gallery, (User) auth.getPrincipal());
     return ResponseEntity.created(gallery.getHref())
         .body(gallery);
